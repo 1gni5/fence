@@ -28,3 +28,7 @@ jobs:
         uses: actions/setup-python@v2
         with: 
           python-version: '3.x'
+          
+      # Lance les test unitaires
+      - name: Run unit-tests
+        run: python -m unittest tests
