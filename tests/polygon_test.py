@@ -35,3 +35,15 @@ class TestPolygon(TestCase):
 
         # Une figure sans sommets n'a pas d'air
         self.assertEqual(Polygon([]).area, 0)
+
+    def test_polygon_gravity_with_normal_values(self):
+        '''Test le fonctionnement normal de la propriété gravity().'''
+
+        # Créer une liste de points
+        vertices = list(map(
+            lambda coords : self.Vertex(*coords),
+            [[-1, 1], [-1, -1], [1, -1], [1, 1]]
+        ))
+
+        # Vérifie que la valeur match le jeux de test
+        self.assertEqual(Polygon(vertices).gravity, self.Vertex(0, 0))
