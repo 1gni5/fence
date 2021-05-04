@@ -28,3 +28,10 @@ class TestPolygon(TestCase):
 
         # Vérifie que la valeur match le jeux de test
         self.assertEqual(Polygon(vertices).area, 4)
+
+    def test_polygon_area_with_no_values(self):
+        '''Test le fonctionnement de la propriété area() avec un Polygon
+        vide.'''
+
+        # Une figure sans sommets n'a pas d'air
+        self.assertEqual(Polygon([]).area, 0)
