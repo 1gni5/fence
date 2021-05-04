@@ -1,0 +1,30 @@
+name: CI/CD
+
+# Événements déclencheurs
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Activation manuelle
+  workflow_dispatch:
+
+jobs:
+
+  build:
+  
+    # Environnement de test
+    runs-on: ubuntu-latest
+
+    # Étapes de tests
+    steps:
+    
+      # Récupère les sources
+      - uses: actions/checkout@v2
+
+      # Met en place Python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with: 
+          python-version: '3.x'
