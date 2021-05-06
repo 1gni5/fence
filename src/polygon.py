@@ -36,13 +36,9 @@ class Polygon():
     def area(self):
         '''Calcule l'air du polygône.'''
 
-        # Créer une deuxième liste de point 'décalés': 
-        #  [A, B, C] => [B, C, A]
-        neighbors = self.vertices[1:] + self.vertices[:1]
-
         # L'utilisation de liste et des built-in est plus rapide
         segments = []
-        for a,b in zip(self.vertices, neighbors):
+        for a,b in self.segments:
             segments.append(a.x * b.y - b.x * a.y)
 
         return sum(segments) / 2
@@ -52,13 +48,9 @@ class Polygon():
         '''Retourne le centre de gravité du polygon sous 
         forme de namedtuple.'''
 
-        # Créer une deuxième liste de point 'décalés':
-        #  [A, B, C] => [B, C, A]
-        neighbors = self.vertices[1:] + self.vertices[:1]
-
         # L'utilisation des listes et des built-in est plus rapide
         x,y = [],[]
-        for a,b in zip(self.vertices, neighbors):
+        for a,b in self.segments:
             z = a.x * b.y - b.x * a.y
             x.append( (a.x + b.x) * z )
             y.append( (a.y + b.y) * z )
@@ -72,13 +64,9 @@ class Polygon():
         '''Retourne un vrai si le point est contenu dans le polygône
         actuel.'''
 
-        # Créer une deuxième liste de point 'décalés': 
-        #  [A, B, C] => [B, C, A]
-        neighbors = self.vertices[1:] + self.vertices[:1]
-
         # L'utilisation de liste et des built-in est plus rapide
         angles = []
-        for a,b in zip(self.vertices, neighbors):
+        for a,b in self.segments:
 
             # Créer les vecteurs
             pa = array([a.x - point.x, a.y - point.y])
