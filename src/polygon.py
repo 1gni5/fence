@@ -16,6 +16,21 @@ class Polygon():
             self.vertices = vertices
         else:
             raise ValueError('A polygon must have at least 3 vertices')
+    @property
+    def segments(self):
+        '''Retourne la liste des segments sous la forme d'une
+        liste de pair (début,fin).'''
+
+        # Créer une deuxième liste de point 'décalés': 
+        #  [A, B, C] => [B, C, A]
+        neighbors = self.vertices[1:] + self.vertices[:1]
+
+        segments = [
+            (start, end) for start,end in zip(self.vertices, neighbors)
+        ]
+
+        return segments
+        
 
     @property
     def area(self):
