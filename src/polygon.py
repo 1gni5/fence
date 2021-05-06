@@ -8,15 +8,15 @@ class Polygon():
     def __init__(self, vertices):
         '''Créer un polygône à partir d'une liste de namedtuple.'''
 
-        self.vertices = vertices
+        # Vérifie que le polygône contient au moins un sommet
+        if len(vertices) >= 3:
+            self.vertices = vertices
+        else:
+            raise ValueError('A polygon must have at least 3 vertices')
 
     @property
     def area(self):
         '''Calcule l'air du polygône.'''
-
-        # Les figures à moins de 3 points n'ont pas d'air
-        if len(self.vertices) < 3:
-            return 0
 
         # Créer une deuxième liste de point 'décalés': 
         #  [A, B, C] => [B, C, A]
