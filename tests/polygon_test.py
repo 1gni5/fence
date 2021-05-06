@@ -36,7 +36,7 @@ class TestPolygon(TestCase):
         with self.assertRaises(ValueError):
             Polygon(vertices[:2])
         
-    def test_polygon_area_with_normal_values(self):
+    def test_polygon_area(self):
         '''Test le fonctionnement normal de la propriété area().'''
 
         # Créer une liste de points
@@ -48,7 +48,7 @@ class TestPolygon(TestCase):
         # Vérifie que la valeur match le jeux de test
         self.assertEqual(Polygon(vertices).area, 4)
 
-    def test_polygon_gravity_with_normal_values(self):
+    def test_polygon_gravity(self):
         '''Test le fonctionnement normal de la propriété gravity().'''
 
         # Créer une liste de points
@@ -60,7 +60,7 @@ class TestPolygon(TestCase):
         # Vérifie que la valeur match le jeux de test
         self.assertEqual(Polygon(vertices).gravity, self.Vertex(0, 0))
 
-    def test_polygon_in_with_point_in(self):
+    def test_polygon_contains(self):
         '''Test le fonctionnement de la methode __contains__() avec
         un point.'''
 
@@ -74,3 +74,24 @@ class TestPolygon(TestCase):
 
         # Vérifie que les données correspondent au jeux de test
         self.assertTrue(polygon.gravity in polygon)
+
+    def test_polygon_segments(self):
+        '''Test le fonctionnement de la propriété segments().'''
+
+        # Créer une liste de points
+        vertices = list(map(
+            lambda coords : self.Vertex(*coords),
+            [[-1, 1], [-1, -1], [1, -1], [1, 1]]
+        ))
+
+        # Créer le polygon de test
+        polygon = Polygon(vertices)
+
+        # Créer une deuxième liste de point 'décalés': 
+        #  [A, B, C] => [B, C, A]
+        neighbors = polygon.vertices[1:] + polygon.vertices[:1]
+
+        for a,b,s in zip(polygon.vertices, neighbors, polygon.segments):
+            self.assertEqual((a,b), s)
+
+        
