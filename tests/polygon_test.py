@@ -59,3 +59,18 @@ class TestPolygon(TestCase):
 
         # Vérifie que la valeur match le jeux de test
         self.assertEqual(Polygon(vertices).gravity, self.Vertex(0, 0))
+
+    def test_polygon_in_with_point_in(self):
+        '''Test le fonctionnement de la methode __contains__() avec
+        un point.'''
+
+        # Créer une liste de points
+        vertices = list(map(
+            lambda coords : self.Vertex(*coords),
+            [[-1, 1], [-1, -1], [1, -1], [1, 1]]
+        ))
+
+        polygon = Polygon(vertices)
+
+        # Vérifie que les données correspondent au jeux de test
+        self.assertTrue(polygon.gravity in polygon)
