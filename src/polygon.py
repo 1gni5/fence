@@ -1,5 +1,7 @@
 # polygon.py
 
+from collections import namedtuple
+
 class Polygon():
     '''Représente un polygône en 2 dimensions'''
 
@@ -26,3 +28,25 @@ class Polygon():
             segments.append(a.x * b.y - b.x * a.y)
 
         return sum(segments) / 2
+
+    @property
+    def gravity(self):
+        '''Retourne le centre de gravité du polygon sous 
+        forme de namedtuple.'''
+
+        # Créer une deuxième liste de point 'décalés': 
+        #  [A, B, C] => [B, C, A]
+        neighbors = self.vertices[1:] + self.vertices[:1]
+
+        # L'utilisation des listes et des built-in est plus rapide
+        x,y = [],[]
+        for a,b in zip(self.vertices, neighbors):
+            z = a.x * b.y - b.x * a.y
+            x.append( (a.x + b.x) * z )
+            y.append( (a.y + b.y) * z )
+
+        x = sum(x) / (6 * self.area)
+        y = sum(y) / (6 * self.area)
+
+        return namedtuple('Gravity', ['x', 'y'])(x,y)
+            
