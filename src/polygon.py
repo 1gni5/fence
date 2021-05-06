@@ -1,6 +1,9 @@
 # polygon.py
 
 from collections import namedtuple
+from math import acos, pi, isclose
+from numpy import array, dot 
+from numpy.linalg import norm
 
 class Polygon():
     '''Représente un polygône en 2 dimensions'''
@@ -34,7 +37,7 @@ class Polygon():
         '''Retourne le centre de gravité du polygon sous 
         forme de namedtuple.'''
 
-        # Créer une deuxième liste de point 'décalés': 
+        # Créer une deuxième liste de point 'décalés':
         #  [A, B, C] => [B, C, A]
         neighbors = self.vertices[1:] + self.vertices[:1]
 
@@ -49,4 +52,28 @@ class Polygon():
         y = sum(y) / (6 * self.area)
 
         return namedtuple('Gravity', ['x', 'y'])(x,y)
+
+    def __contains__(self, point):
+        '''Retourne un vrai si le point est contenu dans le polygône
+        actuel.'''
+
+        # Créer une deuxième liste de point 'décalés': 
+        #  [A, B, C] => [B, C, A]
+        neighbors = self.vertices[1:] + self.vertices[:1]
+
+        # L'utilisation de liste et des built-in est plus rapide
+        angles = []
+        for a,b in zip(self.vertices, neighbors):
+
+            # Créer les vecteurs
+            pa = array([a.x - point.x, a.y - point.y])
+            pb = array([b.x - point.x, b.y - point.y])
+
+            # Calcul de theta
+            angles.append(acos(dot(pa, pb) / (norm(pa) * norm(pb))))
+
+        return sum(angles) != 0
+            
+
+        
             
