@@ -78,7 +78,10 @@ class Polygon():
             pa = array([a.x - point.x, a.y - point.y])
             pb = array([b.x - point.x, b.y - point.y])
 
+            # Récupère le signe du déterminant
+            sign_det = -1 if (a.x * b.y - a.y * b.x) < 0 else 1
+
             # Calcul de theta
-            angles.append(acos(dot(pa, pb) / (norm(pa) * norm(pb))))
+            angles.append(sign_det * acos(dot(pa, pb) / (norm(pa) * norm(pb))))
 
         return sum(angles) != 0
