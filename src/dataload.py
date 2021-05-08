@@ -19,7 +19,21 @@ def dataload(filename, struct_name):
         for row in reader:
 
             structs.append(
-                Struct(*row.values())
+                Struct(*map(parser, row.values()))
             )
             
     return structs
+
+def parser(raw_value, parsers = [str, float, int]):
+    """Essaye de parser une valeur à l'aide d'une liste de parseurs."""
+
+    # Essaye chaque parser
+    for parser in parsers:
+
+        try:
+            value = parser(raw_value)
+        except ValueError:
+            pass
+
+    return value
+        
