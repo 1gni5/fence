@@ -31,4 +31,4 @@ jobs:
           
       # Lance les test unitaires
       - name: Run unit-tests
-        run: python -m unittest tests
+        run: python -m unittest tests/*_test.py
