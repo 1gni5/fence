@@ -1,39 +1,26 @@
 # dataload.py
 
-from csv import DictReader
+from csv import DictReader, QUOTE_NONNUMERIC
 from collections import namedtuple
 
-def dataload(filename, struct_name):
-    """Importe les données contenues dans un fichier csv
-    sous forme de namedtuple."""
+def dataload(filename):
+    """Créer une liste de point à partir du contenu d'un
+    fichier csv."""
 
-    with open(f'data/{filename}.csv') as data_file:
+    with open(f'{filename}') as data_file:
 
-        reader = DictReader(data_file)
+        # Créer une structure de Point
+        Point = namedtuple('Point', ['x', 'y'])
 
-        # Créer la structure à partir de l'entête du fichier
-        Struct = namedtuple(struct_name, reader.fieldnames)
+        reader = DictReader(data_file, quoting=QUOTE_NONNUMERIC)
 
-        # Traduit les données du fichier
-        structs = []
+        # Récupère les données
+        points = []
         for row in reader:
 
-            structs.append(
-                Struct(*map(parser, row.values()))
+            points.append(
+                Point(row['x'], row['y'])
             )
-            
-    return structs
 
-def parser(raw_value, parsers = [str, float, int]):
-    """Essaye de parser une valeur à l'aide d'une liste de parseurs."""
-
-    # Essaye chaque parser
-    for parser in parsers:
-
-        try:
-            value = parser(raw_value)
-        except ValueError:
-            pass
-
-    return value
+    return points
         
