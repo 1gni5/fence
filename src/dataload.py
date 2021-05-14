@@ -3,6 +3,7 @@
 from csv import DictReader, QUOTE_NONNUMERIC
 from collections import namedtuple
 
+
 def load_from_csv(filename):
     """Créer une liste de point à partir du contenu d'un
     fichier csv."""
@@ -23,4 +24,3 @@ def load_from_csv(filename):
             )
 
     return points
-        
