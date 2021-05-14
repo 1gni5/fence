@@ -7,7 +7,7 @@ from collections import namedtuple
 # Ajoute le chemin vers les sources
 path.append('src')
 
-from dataload import dataload
+from dataload import load_from_csv
 
 class TestDataLoad(TestCase):
     """Test les fonctionnalités de la méthode dataload()."""
@@ -27,7 +27,7 @@ class TestDataLoad(TestCase):
         ))
 
         # Récupère les informations à partir du fichier
-        points = dataload('data/test/valid.csv')
+        points = load_from_csv('data/test/valid.csv')
 
         self.assertEqual(valid_points, points)
 
