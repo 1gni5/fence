@@ -1,0 +1,39 @@
+#+TITLE: README
+#+AUTHOR: Jules Ducange
+#+DESCRIPTION: Rapport du projet tutoré de fin de deuxième année de DUT.
+
+* Informations générales
+** Développeurs
++ Jules Ducange (1gni5)
+** Dépots
++ url: [[https://github.com/1gni5/fence]]
+* Guide d'installation
+** Python 3.X.X
+Le projet est développé en **Python** en version 3.X.X, l'interpréteur est libre et disponible sur [[python.org]]. Sous Linux la majorité des distributions propose l'interpréteur via leur gestionnaire de paquets. Attention cependant à bien installer la version 3 ou supérieur.
+** Dépendances
+Le projet utilise la bibliothèque *Numpy* en version 1.20.2 Pour installer cette bibliothèque le plus simple est d'utiliser *pip*. Les commandes ci-dessous met à jour pip et installe les dépendances du projet.
+#+BEGIN_SRC bash
+pip install pip --upgrade
+pip install -r requirements.txt
+#+END_SRC
+** Exécuter le projet
+Pour exécuter le projet :
+#+BEGIN_SRC bash
+python src/cli.py
+#+END_SRC
+Pour exécuter les tests unitaires:
+#+BEGIN_SRC bash
+python -m unittest tests/*_test.py
+#+END_SRC
+
+* Explications et détails
+** Listes et built-in ?
+À plusieur endroit dans le code, quand il s'agit de faire une somme, j'utilise des listes plutôt que de sommer les valeurs directement. Bien que cela sembles un peu contre-intuitif, cette méthode est plus efficace pour une raison simple: les **built-in** comme la fonction "sum()" sont codé en C et compilés, elle sont donc bien plus rapide que du code Python qui est lui interprété. Cette méthode pourrait mener à une utilisation importante de la mémoire mais dans notres cas le nombre de piquets, donc d'éléments dans la liste, est limité à 50.
+** Pourquoi aucun type n'apparait dans la documentation des fonctions ?
+D'une part Python est un langage dynamiquement typé, d'autre part la PEP 257 (Docstring conventions) précise que la documentation d'une fonction ne doit pas contenir les informations "which can be obtained by introspection".
+*** En pratique:
+Les méthodes de **polygon.py** ne précise pas de type pour leur arguments, cependant une lecture rapide du code nous indique que ces 2 fonctions travaillent avec des objets possédant 2 attributs: x et y qui sont tout deux des réels. Dans le script **cli.py** ces fonctions sont utilisé avec des *namedtuple* cependant quelqu'un d'autre pourrait choisir de les utiliser dans un autre projet avec une classe bien plus complète mais qui possèderais les mêmes attributs.
+* Conclusion
+Ce projet m'a permit de mettre en oeuvre les compétences aue j'ai acquéris lors de mes 2 années à l'IUT mais également les compétences que j'ai développé de mon côté en auto-formation.
+
+Le projet de base étant relativement simple il encourage à ajouter de nouvelles fonctionnalités, ou perfectionner le code déjà existant.
