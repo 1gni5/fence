@@ -9,9 +9,9 @@
 + url: [[https://github.com/1gni5/fence]]
 * Guide d'installation
 ** Python 3.X.X
-Le projet est développé en **Python** en version 3.X.X, l'interpréteur est libre et disponible sur [[python.org]]. Sous Linux la majorité des distributions propose l'interpréteur via leur gestionnaire de paquets. Attention cependant à bien installer la version 3 ou supérieur.
+Le projet est développé en *Python* en version 3.X.X, l'interpréteur est libre et disponible sur [[python.org]]. Sous Linux la majorité des distributions propose l'interpréteur via leur gestionnaire de paquets. Attention cependant à bien installer la version 3 ou supérieur.
 ** Dépendances
-Le projet utilise la bibliothèque *Numpy* en version 1.20.2 Pour installer cette bibliothèque le plus simple est d'utiliser *pip*. Les commandes ci-dessous met à jour pip et installe les dépendances du projet.
+Le projet utilise les bibliothèques *Numpy* et *Matplotlib*. Pour installer ces bibliothèques et leur dépendances on utilise *pip*. Les commandes ci-dessous met à jour pip et installe les dépendances du projet.
 #+BEGIN_SRC bash
 pip install pip --upgrade
 pip install -r requirements.txt
