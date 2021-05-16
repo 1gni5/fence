@@ -23,16 +23,26 @@ def draw(pen, cow):
     pyplot.scatter(*cow)
     pyplot.show()
 
-def main():
+def extract_args_and_options(argv):
+    """Extrait la liste ds arguments et des options,
+    retourne 2 listes."""
 
-    # Filtre les arguments et les options
+    # Tout ce qui commence par "--" est une option
     options = list(
         filter(lambda x : x.startswith('--'), argv[1:])
     )
 
+    # Tout ce qui n'est pas une option est un argument
     arguments = list(
         filter(lambda x : x not in options, argv[1:])
     )
+
+    return arguments, options
+
+def main():
+
+    # Filtre les arguments et les options
+    arguments, options = extract_args_and_options(argv)
 
     # Pour chaque fichier passé en paramètre
     for filename in arguments:
@@ -54,8 +64,8 @@ def main():
             draw(pen, cow)
 
     # L'utilisateur n'a pas fourni de fichier
-    if len(argv) <= 1:
-        print(f'{argv[0]}: missing operand. Usage: {argv[0]} filename [filename2, ..., filenameN]')
+    if len(arguments) == 0:
+        print(f'{argv[0]}: missing operand. Usage: {argv[0]} filename [filename2, ..., filenameN] [--graph]')
 
 
 if __name__ == '__main__':
