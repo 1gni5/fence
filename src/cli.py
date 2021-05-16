@@ -10,6 +10,11 @@ from dataload import load_from_csv
 def draw(pen, cow):
     """Dessine l'enclot ainsi que la vache."""
 
+    # Paramètre la fenêtre de graphe
+    pyplot.title("FENCE")
+    pyplot.xlabel("Axe X")
+    pyplot.ylabel("Axe Y")
+
     # Dessine l'enclot
     for a, b in pen.segments:
         pyplot.plot(a, b, marker='o')
