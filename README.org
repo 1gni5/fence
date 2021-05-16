@@ -33,6 +33,13 @@ python -m unittest tests/*_test.py
 D'une part Python est un langage dynamiquement typé, d'autre part la PEP 257 (Docstring conventions) précise que la documentation d'une fonction ne doit pas contenir les informations "which can be obtained by introspection".
 *** En pratique:
 Les méthodes de **polygon.py** ne précise pas de type pour leur arguments, cependant une lecture rapide du code nous indique que ces 2 fonctions travaillent avec des objets possédant 2 attributs: x et y qui sont tout deux des réels. Dans le script **cli.py** ces fonctions sont utilisé avec des *namedtuple* cependant quelqu'un d'autre pourrait choisir de les utiliser dans un autre projet avec une classe bien plus complète mais qui possèderais les mêmes attributs.
+
+** Que signifie les "__" dans le nom des méthodes ?
+Dans la classe *Polygon* la méthode qui vérifie si un point appartient à au polygône est nommé \__contains\__() et non contains(). C'est parce qu'il s'agit d'une "magic method" de Python, elle permet de définir le comportement du mot-clé *in*. Elle permet donc d'écrire :
+#+BEGIN_SRC python
+if vache in enclot:
+    # Code ...
+#+END_SRC
 * Conclusion
 Ce projet m'a permit de mettre en oeuvre les compétences aue j'ai acquéris lors de mes 2 années à l'IUT mais également les compétences que j'ai développé de mon côté en auto-formation.
 
