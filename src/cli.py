@@ -28,7 +28,7 @@ def draw(pen, cow):
 
     # Dessine l'enclot
     for a, b in pen.segments:
-        pyplot.plot(a, b, marker='o')
+        pyplot.plot((a.x, b.x), (a.y, b.y), marker='o')
 
     # Dessine la vache
     pyplot.scatter(*cow)
