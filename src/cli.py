@@ -2,10 +2,21 @@
 
 from sys import argv
 from matplotlib import pyplot
+from os import system
+from platform import system as OS
 
 from polygon import Polygon
 from dataload import load_from_csv
 
+def cowsay(answer):
+
+    # Ne fonctionne que sous Linux
+    if OS() != 'Linux':
+        return 1
+
+    cmd = f"cowsay \' Je suis à l {answer} ! \'"
+    # Essaye d'exécuter la commande
+    system(cmd)
 
 def draw(pen, cow):
     """Dessine l'enclot ainsi que la vache."""
@@ -58,6 +69,10 @@ def main():
         # Affiche la réponse
         answer = 'intérieur' if cow in pen else 'extérieur'
         print(f"La vache est à l'{answer} de l'enclos.")
+
+        # Utilise la command cowsay
+        if '--cowsay' in options:
+            cowsay(answer)
 
         # Affiche le graphique
         if '--graph' in options:
