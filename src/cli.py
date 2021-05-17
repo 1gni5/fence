@@ -10,28 +10,31 @@ from dataload import load_from_csv
 
 def cowsay(answer):
 
-    # Ne fonctionne que sous Linux
-    if OS() != 'Linux':
-        return 1
-
-    cmd = f"cowsay \' Je suis à l {answer} ! \'"
     # Essaye d'exécuter la commande
-    system(cmd)
+    cmd = f"cowsay \' Je suis à l {answer} ! \'"
+    result = system(cmd)
 
 def draw(pen, cow):
     """Dessine l'enclot ainsi que la vache."""
 
     # Paramètre la fenêtre de graphe
-    pyplot.title("FENCE")
-    pyplot.xlabel("Axe X")
-    pyplot.ylabel("Axe Y")
+    pyplot.title("FENCE (Fence Exist No Cow Escape)")
+    pyplot.axis('equal')
 
     # Dessine l'enclot
-    for a, b in pen.segments:
-        pyplot.plot((a.x, b.x), (a.y, b.y), marker='o')
+    vertices = pen.vertices + pen.vertices[:1]
+    
+    pyplot.plot(
+    	[ vertex.x for vertex in vertices ],
+    	[ vertex.y for vertex in vertices ],
+    	marker='o', label='Enclos'
+    )
 
     # Dessine la vache
-    pyplot.scatter(*cow)
+    pyplot.scatter(*cow, label='Vache', marker='x', color='r')
+    
+    # Affiche le graphique
+    pyplot.legend()
     pyplot.show()
 
 def extract_args_and_options(argv):
