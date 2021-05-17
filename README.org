@@ -9,42 +9,116 @@
 + url: [[https://github.com/1gni5/fence]]
 * Guide d'installation
 ** Python 3.X.X
-Le projet est développé en *Python* en version 3.X.X, l'interpréteur est libre et disponible sur [[python.org]]. Sous Linux la majorité des distributions propose l'interpréteur via leur gestionnaire de paquets. Attention cependant à bien installer la version 3 ou supérieur.
+Le projet est développé en *Python* en version 3.X.X, l'interpréteur
+est libre et disponible sur [[https://www.python.org/][python.org]]. Sous Linux la majorité des
+distributions propose l'interpréteur via leur gestionnaire de
+paquets. Attention cependant à bien installer la version 3 ou
+supérieur.
 ** Dépendances
-Le projet utilise les bibliothèques *Numpy* et *Matplotlib*. Pour installer ces bibliothèques et leur dépendances on utilise *pip*. Les commandes ci-dessous met à jour pip et installe les dépendances du projet.
+Le projet utilise les bibliothèques *Numpy* et *Matplotlib*. Pour
+installer ces bibliothèques et leur dépendances on propose d'utiliser *pip*. Les
+commandes ci-dessous permettent de  mettre à jour pip et d'installer les
+dépendances du projet.
+
 #+BEGIN_SRC bash
 pip install pip --upgrade
 pip install -r requirements.txt
 #+END_SRC
+
 ** Exécuter le projet
 Pour exécuter le projet :
 #+BEGIN_SRC bash
-python src/cli.py
+  # Sans paramètres
+  python src/cli.py chemin_fichier [autre_fichier, ... ]
+
+  # L'option --graph trace un graphique
+  python src/cli.py chemin_fichier --graph
+
+  # Meilleur affichage (nécessite Linux et cowsay) ;)
+  python src/cli.py chemin_fichier --cowsay
+
 #+END_SRC
 Pour exécuter les tests unitaires:
 #+BEGIN_SRC bash
-python -m unittest tests/*_test.py
+  python -m unittest tests/*_test.py
 #+END_SRC
 
 * Explications et détails
 ** Listes et built-in ?
-À plusieurs reprise dans le code, quand il s'agit de faire une somme, j'utilise des listes plutôt que de sommer les valeurs directement. Bien que cela sembles un peu contre-intuitif, cette méthode est plus efficace pour une raison simple: les **built-in** comme la fonction "sum()" sont codé en C et compilés, elle sont donc bien plus rapide que du code Python qui est lui interprété. Cette méthode pourrait mener à une utilisation importante de la mémoire mais dans notres cas le nombre de piquets, donc d'éléments dans la liste, est limité à 50.
+À plusieurs reprise dans le code, quand il s'agit d'effectuer une somme,
+j'utilise des listes plutôt que de sommer les valeurs
+directement. Bien que cela semble contre-intuitif, cette
+méthode est plus efficace pour une raison simple: les **built-in**
+comme la fonction "sum()" sont codées en C et compilées, elle sont donc
+bien plus rapide que du code Python qui est lui interprété. Cette
+méthode pourrait mener à une utilisation importante de la mémoire mais
+dans notre cas le nombre de piquets, et donc d'éléments dans la liste,
+est limité à 50.
+
 ** Pourquoi aucun type n'apparait dans la documentation des fonctions ?
-D'une part Python est un langage dynamiquement typé, d'autre part la PEP 257 (Docstring conventions) précise que la documentation d'une fonction ne doit pas contenir les informations "which can be obtained by introspection".
+D'une part Python est un langage dynamiquement typé, d'autre part la
+PEP 257 (Docstring conventions) précise que la documentation d'une
+fonction ne doit pas contenir les informations "which can be obtained
+by introspection", cela permet au code d'être plus flexible et d'exploiter
+au maximum le système de typage de Python.
 *** En pratique:
-Les méthodes de **polygon.py** ne précise pas de type pour leur arguments, cependant une lecture rapide du code nous indique que ces 2 fonctions travaillent avec des objets possédant 2 attributs: x et y qui sont tout deux des réels. Dans le script **cli.py** ces fonctions sont utilisé avec des *namedtuple* cependant quelqu'un d'autre pourrait choisir de les utiliser dans un autre projet avec une classe bien plus complète mais qui possèderais les mêmes attributs.
+Les méthodes de **polygon.py** ne précisent pas de type pour leur
+arguments, cependant une lecture rapide du code nous indique que ces 2
+fonctions travaillent avec des objets possédant 2 attributs: x et y
+qui sont tout deux des réels. Dans le script **cli.py** ces fonctions
+sont utilisé avec des *namedtuple* cependant leur utilisation n'est pas
+obligatoire. Dans un projet différent les même méthodes pourraient être
+utilisées avec des classes bien plus complètes comportant les attributs
+x et y.
 
 ** Que signifie les "__" dans le nom des méthodes ?
-Dans la classe *Polygon* la méthode qui vérifie si un point appartient à au polygône est nommé __contains__() et non contains(). C'est parce qu'il s'agit d'une "magic method" de Python, elle permet de définir le comportement du mot-clé *in*. Elle permet donc d'écrire :
+Dans la classe *Polygon* la méthode qui vérifie si un point appartient
+bien au polygône est nommé __contains__() et non contains(). C'est parce
+qu'il s'agit d'une "magic method" de Python, elle permet de définir le
+comportement du mot-clé *in*. Elle permet donc d'écrire :
+
 #+BEGIN_SRC python
 if vache in enclot:
     # Code ...
 #+END_SRC
 
 ** Qualité de production: Tests unitaires et intégration continue
-La logique de l'application est testée par des test unitaires qui permettent d'assurer que l'application fonctionne correctement. Ces tests unitaires sont utilisés dans l'intégration continue de [[github.com/actions]] qui exécute la série de tests avant chaque merge-request sur la branche principale. Cela permet d'éviter d'intégrer du code disfonctionnelle dans la branche principale.
+La logique de l'application est testée par une série de test unitaires qui
+permettent d'assurer que l'application fonctionne correctement. Ces
+tests unitaires sont utilisés dans l'intégration continue de
+[[https://github.com/actions][github]] qui exécute la série de tests avant chaque
+merge-request sur la branche principale. Cela permet d'éviter
+d'intégrer du code disfonctionnel dans la branche principale.
 
 * Conclusion
-Ce projet m'a permis de mettre en oeuvre les compétences aue j'ai acquéris lors de mes 2 années à l'IUT ainsi que les compétences que j'ai développé en auto-didacte (intégration continue, tests-unitaires, ...).
+Ce projet m'a permis de mettre en oeuvre les compétences que j'ai
+acquis au cours de mes 2 années à l'IUT ainsi que les compétences que
+j'ai développé en auto-didacte (intégration continue, tests-unitaires,
+...).
 
-Le projet de base étant relativement simple il encourage à ajouter de nouvelles fonctionnalités, ou perfectionner le code déjà existant.
+Le projet de base étant relativement simple il encourage à ajouter de
+nouvelles fonctionnalités, ou perfectionner le code déjà existant.
+
+Le Python est un langage relativement lent, de part sa nature de langage interprété.
+Une amélioration possible serait de réécrire les parties "gourmandes" du programme
+dans un langage compilé et d'appeller ces fonctions dans Python. Pour cela il existe
+de nomnbreuse interface, l'une d'elle est l'interface C/C++ qui peut également être
+utilisé avec Rust. Vous trouverez en annexes une fonction en Rust qui pourrait être
+utilisé pour améliorer les performances du programme.
+
+* Annexes
+** polygon.py
+   #+include: "src/polygon.py" src python -n
+** cli.py
+   #+include: "src/cli.py" src python -n
+** dataload.py
+   #+include: "src/dataload.py" src python -n
+** norm.rs (Rust)
+   #+BEGIN_SRC rust
+fn norm(arr: Vec<f64>) -> f64 {
+    return arr.iter()
+              .map(|x| x * x)
+              .sum::<f64>()
+              .sqrt();
+}
+   #+END_SRC
